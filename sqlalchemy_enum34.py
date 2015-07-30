@@ -11,8 +11,9 @@ __version__ = '1.0.0'
 
 
 class Enum(TypeDecorator, SchemaType):
-    """Store :class:`enum.Enum` in the standard library (introduced in Python
-    3.4).  Its internal representation is equivalent to SQLAlchemy's built-in
+    """Store values of standard :class:`enum.Enum` (which became a part of
+    standard library since Python 3.4).
+    Its internal representation is equivalent to SQLAlchemy's built-in
     :class:`~sqlalchemy.types.Enum`, but its Python representation is not
     a :class:`str` but :class:`enum.Enum`.
 

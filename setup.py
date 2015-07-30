@@ -5,6 +5,14 @@ import sys
 from setuptools import setup
 
 
+def readme():
+    try:
+        with open('README.rst') as f:
+            return f.read()
+    except IOError:
+        pass
+
+
 def get_version():
     module_path = os.path.join(os.path.dirname(__file__),
                                'sqlalchemy_enum34.py')
@@ -38,6 +46,7 @@ def get_extras_require():
 setup(
     name='SQLAlchemy-Enum34',
     description='SQLAlchemy type to store standard enum.Enum value',
+    long_description=readme(),
     version=get_version(),
     url='https://github.com/spoqa/sqlalchemy-enum34',
     author='Hong Minhee',
