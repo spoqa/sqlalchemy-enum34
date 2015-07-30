@@ -1,6 +1,12 @@
 import enum
 import os
 
+try:
+    from psycopg2ct.compat import register
+except ImportError:
+    pass
+else:
+    register()
 from pytest import fixture, yield_fixture
 from sqlalchemy.engine import create_engine
 from sqlalchemy.ext.declarative import declarative_base
