@@ -2,6 +2,7 @@
 *.egg
 *.pyc
 .*.swp
+.coverage
 .eggs/
 .tox/
 build/

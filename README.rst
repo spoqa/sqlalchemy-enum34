@@ -5,6 +5,8 @@ SQLAlchemy-Enum34
    :target: https://pypi.python.org/pypi/SQLAlchemy-Enum34
 .. image:: https://travis-ci.org/spoqa/sqlalchemy-enum34.svg?branch=master
    :target: https://travis-ci.org/spoqa/sqlalchemy-enum34
+.. image:: https://codecov.io/github/spoqa/sqlalchemy-enum34/coverage.svg?branch=master
+   :target: https://codecov.io/github/spoqa/sqlalchemy-enum34?branch=master
 
 This package provides a SQLAlchemy type to store values of standard
 ``enum.Enum`` (which became a part of standard library since Python 3.4).

@@ -1,0 +1,15 @@
+[run]
+branch = True
+source = <project-name>
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if self\.debug
+    raise AssertionError
+    raise NotImplementedError
+    return NotImplemented
+    if 0:
+    if False:
+    if __name__ == .__main__.:
+ignore_errors = True
