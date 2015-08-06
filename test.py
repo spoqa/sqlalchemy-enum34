@@ -32,8 +32,14 @@ class Color(enum.Enum):
 class ColorTable(Base):
 
     id = Column(Integer, primary_key=True)
-    color_by_val = Column(Enum(Color, name='color_by_val'))
-    color_by_name = Column(Enum(Color, by_name=True, name='color_by_name'))
+    color_by_val = Column(
+        Enum(Color, name='color_by_val'),
+        nullable=True
+    )
+    color_by_name = Column(
+        Enum(Color, by_name=True, name='color_by_name'),
+        nullable=True
+    )
 
     __tablename__ = 'tb_color'
 
@@ -100,6 +106,14 @@ def fx_blue(fx_session):
     return blue
 
 
+@fixture
+def fx_null(fx_session):
+    null = ColorTable(color_by_val=None, color_by_name=None)
+    fx_session.add(null)
+    fx_session.flush()
+    return null
+
+
 def test_enum_by_value(fx_session, fx_blue, fx_red):
     result = fx_session.query(ColorTable) \
                        .filter_by(color_by_val=Color.blue) \
@@ -120,6 +134,28 @@ def test_enum_by_name(fx_session, fx_green, fx_blue):
                         .filter("tb_color.color_by_name = 'blue'") \
                         .one()
     assert fx_blue is result2
+
+
+def test_null_by_value(fx_session, fx_null):
+    result = fx_session.query(ColorTable) \
+                       .filter_by(color_by_val=None) \
+                       .one()
+    assert fx_null is result
+    result2 = fx_session.query(ColorTable) \
+                        .filter("tb_color.color_by_val is null") \
+                        .one()
+    assert fx_null is result2
+
+
+def test_null_by_name(fx_session, fx_null):
+    result = fx_session.query(ColorTable) \
+                       .filter_by(color_by_name=None) \
+                       .one()
+    assert fx_null is result
+    result2 = fx_session.query(ColorTable) \
+                        .filter("tb_color.color_by_name is null") \
+                        .one()
+    assert fx_null is result2
 
 
 def test_enum_is_enum_type():

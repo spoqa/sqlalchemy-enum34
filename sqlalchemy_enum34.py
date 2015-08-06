@@ -42,13 +42,13 @@ class Enum(TypeDecorator, SchemaType):
 
     def process_bind_param(self, value, dialect):
         if self._by_name:
-            return value.name
-        return value.value
+            return value.name if value else None
+        return value.value if value else None
 
     def process_result_value(self, value, dialect):
         if self._by_name:
-            return self._enum_class[value]
-        return self._enum_class(value)
+            return self._enum_class[value] if value else None
+        return self._enum_class(value) if value else None
 
     def _set_parent(self, column):
         self.impl._set_parent(column)
