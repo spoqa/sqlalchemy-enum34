@@ -32,8 +32,14 @@ class Color(enum.Enum):
 class ColorTable(Base):
 
     id = Column(Integer, primary_key=True)
-    color_by_val = Column(Enum(Color, name='color_by_val'), nullable=True)
-    color_by_name = Column(Enum(Color, by_name=True, name='color_by_name'), nullable=True)
+    color_by_val = Column(
+        Enum(Color, name='color_by_val'),
+        nullable=True
+    )
+    color_by_name = Column(
+        Enum(Color, by_name=True, name='color_by_name'),
+        nullable=True
+    )
 
     __tablename__ = 'tb_color'
 
