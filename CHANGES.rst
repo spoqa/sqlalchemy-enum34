@@ -4,7 +4,7 @@ Changelog
 1.0.1
 -----
 
-To be released.
+Released on August 7, 2015.
 
 - Fixed that ``sqlalchemy_enum34.Enum`` didn't allow nullability.
   [`#1`_ by Andrés Moya]
