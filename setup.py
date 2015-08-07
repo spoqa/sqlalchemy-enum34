@@ -8,9 +8,15 @@ from setuptools import setup
 def readme():
     try:
         with open('README.rst') as f:
-            return f.read()
+            readme = f.read()
     except IOError:
         pass
+    try:
+        with open('CHANGES.rst') as f:
+            readme += '\n\n' + f.read()
+    except IOError:
+        pass
+    return readme
 
 
 def get_version():
