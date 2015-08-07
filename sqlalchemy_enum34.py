@@ -7,7 +7,7 @@ import enum
 from sqlalchemy.types import Enum as BaseEnum, SchemaType, TypeDecorator
 
 __all__ = 'Enum', 'EnumType'
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 
 class Enum(TypeDecorator, SchemaType):
