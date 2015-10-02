@@ -46,7 +46,7 @@ The following example shows how enum_-typed columns can be declared::
 
 And the following REPL session shows how these columns work:
 
->>> shirt = session.query(Shirt).filter(Shift.color == Color.navy).first()
+>>> shirt = session.query(Shirt).filter(Shirt.color == Color.navy).first()
 >>> shirt.color
 <Color.navy: 'navy'>
 >>> shirt.size
