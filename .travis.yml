@@ -30,7 +30,7 @@ install:
 - pip install -U -e .
 - pip install -U pytest flake8 pytest-cov codecov
 - if [[ "$PY" = "pypy" ]]; then
-    pip install psycopg2ct;
+    pip install psycopg2cffi;
   else
     pip install psycopg2-binary;
   fi

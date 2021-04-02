@@ -2,7 +2,7 @@ import enum
 import os
 
 try:
-    from psycopg2ct.compat import register
+    from psycopg2cffi.compat import register
 except ImportError:
     pass
 else:
