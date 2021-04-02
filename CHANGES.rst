@@ -1,6 +1,16 @@
 Changelog
 =========
 
+2.0.0
+-----
+
+Released on April XX, 2021.
+
+- Update for SQLAlchemy 1.3+ and modern Python versions.
+  [`#6`_ by Joongi Kim]
+
+.. _#6: https://github.com/spoqa/sqlalchemy-enum34/pull/6
+
 1.0.1
 -----
 
