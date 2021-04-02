@@ -8,7 +8,7 @@ import sqlalchemy
 from sqlalchemy.types import Enum as BaseEnum, SchemaType, TypeDecorator
 
 __all__ = 'Enum', 'EnumType'
-__version__ = '1.0.1'
+__version__ = '2.0.0'
 
 _sqlalchemy_version = tuple(map(int, sqlalchemy.__version__.split('.')))
 

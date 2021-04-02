@@ -37,7 +37,11 @@ def get_version():
 
 
 def get_install_requires():
-    install_requires = ['setuptools', 'SQLAlchemy >= 0.8.0']
+    sa_ver =os.environ.get('SQLALCHEMY_VER', None)
+    if sa_ver is None:
+        install_requires = ['setuptools', 'SQLAlchemy >= 1.3.0']
+    else:
+        install_requires = ['setuptools', 'SQLAlchemy' + sa_ver]
     if 'bdist_wheel' not in sys.argv and sys.version_info < (3, 4):
         install_requires.append('enum34')
     return install_requires
