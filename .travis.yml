@@ -33,7 +33,7 @@ install:
   else
     pip install psycopg2-binary;
   fi
-  if [[ "$PY" = "pypy" ]]; then
+- if [[ "$PY" = "pypy" ]]; then
     pip install PyMySQL;
     export TEST_DATABASE_URLS="${TEST_DATABASE_URLS/mysqlconnector/pymysql}";
   else
