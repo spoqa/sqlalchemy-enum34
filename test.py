@@ -2,7 +2,7 @@ import enum
 import os
 
 try:
-    from psycopg2ct.compat import register
+    from psycopg2cffi.compat import register
 except ImportError:
     pass
 else:
@@ -13,6 +13,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
 from sqlalchemy.schema import Column
+from sqlalchemy.sql import text
 from sqlalchemy.types import Integer
 
 from sqlalchemy_enum34 import Enum, EnumType
@@ -120,7 +121,7 @@ def test_enum_by_value(fx_session, fx_blue, fx_red):
                        .one()
     assert fx_blue is result
     result2 = fx_session.query(ColorTable) \
-                        .filter("tb_color.color_by_val = 'r'") \
+                        .filter(text("tb_color.color_by_val = 'r'")) \
                         .one()
     assert fx_red is result2
 
@@ -131,7 +132,7 @@ def test_enum_by_name(fx_session, fx_green, fx_blue):
                        .one()
     assert fx_green is result
     result2 = fx_session.query(ColorTable) \
-                        .filter("tb_color.color_by_name = 'blue'") \
+                        .filter(text("tb_color.color_by_name = 'blue'")) \
                         .one()
     assert fx_blue is result2
 
@@ -142,7 +143,7 @@ def test_null_by_value(fx_session, fx_null):
                        .one()
     assert fx_null is result
     result2 = fx_session.query(ColorTable) \
-                        .filter("tb_color.color_by_val is null") \
+                        .filter(text("tb_color.color_by_val is null")) \
                         .one()
     assert fx_null is result2
 
@@ -153,7 +154,7 @@ def test_null_by_name(fx_session, fx_null):
                        .one()
     assert fx_null is result
     result2 = fx_session.query(ColorTable) \
-                        .filter("tb_color.color_by_name is null") \
+                        .filter(text("tb_color.color_by_name is null")) \
                         .one()
     assert fx_null is result2
 

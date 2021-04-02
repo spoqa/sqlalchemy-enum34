@@ -2,21 +2,20 @@ language: python
 sudo: false
 python:
 - pypy
-- 2.6
 - 2.7
 - pypy3
-- 3.2
-- 3.3
-- 3.4
+- 3.6
+- 3.7
+- 3.8
+- 3.9
 env:
   global:
   - PG_URL="postgresql:///enum34_test"
   - MYSQL_URL="mysql+mysqlconnector://root@localhost/enum34_test"
   - TEST_DATABASE_URLS="$PG_URL $MYSQL_URL"
   matrix:
-  - SQLALCHEMY_VER=">=0.8.0,<0.9.0"
-  - SQLALCHEMY_VER=">=0.9.0,<1.0.0"
-  - SQLALCHEMY_VER=">=1.0.0,<1.2.0"
+  - SQLALCHEMY_VER=">=1.3.0,<1.4.0"
+  - SQLALCHEMY_VER=">=1.4.0,<2.0.0"
 services:
 - postgresql
 - mysql
@@ -26,42 +25,26 @@ before_install:
 - echo "PY='$PY'"
 - echo "PY_VER='$PY_VER'"
 install:
-- pip install "SQLAlchemy $SQLALCHEMY_VER"
-- pip install -e .
-- pip install pytest flake8
-- if [[ "$PY_VER" != "3.2" ]]; then
-    pip install pytest-cov codecov;
+- pip install -U pip setuptools wheel
+- pip install -U "SQLAlchemy $SQLALCHEMY_VER"
+- pip install -U -e .
+- pip install -U pytest flake8 pytest-cov codecov
+- if [[ "$PY" = "pypy" ]]; then
+    pip install psycopg2cffi;
+  else
+    pip install psycopg2-binary;
   fi
 - if [[ "$PY" = "pypy" ]]; then
-    if [[ "$PY_VER" = "3.2" ]]; then
-      export TEST_DATABASE_URLS="";
-    else
-      pip install psycopg2ct;
-    fi
+    pip install PyMySQL;
+    export TEST_DATABASE_URLS="${TEST_DATABASE_URLS/mysqlconnector/pymysql}";
   else
-    pip install psycopg2;
-  fi
-- if [[ "$PY" = "3.2" ]]; then
-    export TEST_DATABASE_URLS="$PG_URL";
-  elif [[ "$PY" = "pypy" ]]; then
-    if [[ "$PY_VER" != "3.2" ]]; then
-      pip install PyMySQL;
-      export TEST_DATABASE_URLS="${TEST_DATABASE_URLS/mysqlconnector/pymysql}";
-    fi
-  else
-    pip install --allow-all-external mysql-connector-python;
+    pip install mysql-connector-python;
   fi
 before_script:
 - createdb -E utf8 -T postgres enum34_test
 - mysql -e 'CREATE DATABASE enum34_test;'
 script:
-- if [[ "$PY_VER" = "3.2" ]]; then
-    py.test --durations=10 test.py;
-  else
-    py.test --cov sqlalchemy_enum34.py --durations=10 test.py;
-  fi
+- python -m pytest --cov sqlalchemy_enum34.py --durations=10 test.py
 - flake8 .
 after_success:
-- if [[ "$PY_VER" != "3.2" ]]; then
-    codecov;
-  fi
+- codecov
