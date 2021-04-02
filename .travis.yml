@@ -38,7 +38,7 @@ install:
     pip install PyMySQL;
     export TEST_DATABASE_URLS="${TEST_DATABASE_URLS/mysqlconnector/pymysql}";
   else
-    pip install --allow-all-external mysql-connector-python;
+    pip install mysql-connector-python;
   fi
 before_script:
 - createdb -E utf8 -T postgres enum34_test
