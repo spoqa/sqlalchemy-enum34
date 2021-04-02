@@ -4,10 +4,13 @@
 """
 import enum
 
+import sqlalchemy
 from sqlalchemy.types import Enum as BaseEnum, SchemaType, TypeDecorator
 
 __all__ = 'Enum', 'EnumType'
 __version__ = '1.0.1'
+
+_sqlalchemy_version = tuple(map(int, sqlalchemy.__version__.split('.')))
 
 
 class Enum(TypeDecorator, SchemaType):
@@ -50,8 +53,9 @@ class Enum(TypeDecorator, SchemaType):
             return self._enum_class[value] if value else None
         return self._enum_class(value) if value else None
 
-    def _set_parent(self, column):
-        self.impl._set_parent(column)
+    if _sqlalchemy_version < (1, 4, 4):
+        def _set_parent(self, column):
+            self.impl._set_parent(column)
 
     @property
     def python_type(self):
