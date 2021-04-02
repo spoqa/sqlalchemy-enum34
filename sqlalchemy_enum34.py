@@ -53,7 +53,10 @@ class Enum(TypeDecorator, SchemaType):
             return self._enum_class[value] if value else None
         return self._enum_class(value) if value else None
 
-    if _sqlalchemy_version < (1, 4, 4):
+    if (
+        (1, 4, 0) <= _sqlalchemy_version < (1, 4, 4) or
+        _sqlalchemy_version < (1, 3, 24)
+    ):
         def _set_parent(self, column):
             self.impl._set_parent(column)
 
