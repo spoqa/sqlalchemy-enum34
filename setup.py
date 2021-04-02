@@ -47,7 +47,8 @@ setup(
     license='MIT License',
     py_modules=['sqlalchemy_enum34'],
     setup_requires=[
-        'setuptools>=54.2.0',
+        'setuptools~=44.1.0; python_version<"3"',
+        'setuptools>=54.2.0; python_version>="3"',
         'wheel>=0.36.2',
     ],
     install_requires=[
