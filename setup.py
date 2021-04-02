@@ -36,23 +36,6 @@ def get_version():
             return node.value.s
 
 
-def get_install_requires():
-    sa_ver =os.environ.get('SQLALCHEMY_VER', None)
-    if sa_ver is None:
-        install_requires = ['setuptools', 'SQLAlchemy >= 1.3.0']
-    else:
-        install_requires = ['setuptools', 'SQLAlchemy' + sa_ver]
-    if 'bdist_wheel' not in sys.argv and sys.version_info < (3, 4):
-        install_requires.append('enum34')
-    return install_requires
-
-
-def get_extras_require():
-    """Generate conditional requirements with environ marker."""
-    for pyversion in '2.5', '2.6', '2.7', '3.2', '3.3':
-        yield ':python_version==' + repr(pyversion), ['enum34']
-
-
 setup(
     name='SQLAlchemy-Enum34',
     description='SQLAlchemy type to store standard enum.Enum value',
@@ -63,19 +46,19 @@ setup(
     author_email='hongminhee' '@' 'member.fsf.org',
     license='MIT License',
     py_modules=['sqlalchemy_enum34'],
-    install_requires=get_install_requires(),
-    extras_require=dict(get_extras_require()),
+    setup_requires=[
+        'setuptools>=54.2.0',
+        'wheel>=0.36.2',
+    ],
+    install_requires=[
+        'SQLAlchemy>=1.3.0',
+    ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',

@@ -25,9 +25,10 @@ before_install:
 - echo "PY='$PY'"
 - echo "PY_VER='$PY_VER'"
 install:
-- pip install "SQLAlchemy $SQLALCHEMY_VER"
-- pip install -e .
-- pip install pytest flake8 pytest-cov codecov;
+- pip install -U pip setuptools wheel
+- pip install -U "SQLAlchemy $SQLALCHEMY_VER"
+- pip install -U -e .
+- pip install -U pytest flake8 pytest-cov codecov
 - if [[ "$PY" = "pypy" ]]; then
     pip install psycopg2ct;
   else
