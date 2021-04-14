@@ -4,7 +4,7 @@ Changelog
 2.0.0
 -----
 
-Released on April XX, 2021.
+Released on April 14, 2021.
 
 - Update for SQLAlchemy 1.3+ and modern Python versions.
   [`#6`_ by Joongi Kim]
